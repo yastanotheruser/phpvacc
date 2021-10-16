@@ -28,13 +28,10 @@
     }
   })
 
-  submit.addEventListener('click', function (e) {
+  form.addEventListener('submit', function (e) {
     e.preventDefault()
-    if (!form.reportValidity()) {
-      return
-    }
-
     submit.disabled = true
+
     const timeout = setTimeout(() => {
       Swal.fire({
         title: 'Espere',
@@ -49,7 +46,9 @@
 
     doRegister()
       .then(() => {
-        Swal.fire('Correcto', 'Se ha guardado el registro', 'success')
+        Swal.fire('Correcto', 'Se ha guardado el registro', 'success').then(
+          () => form.reset()
+        )
       })
       .catch(() => {
         Swal.fire('Oops', 'No se pudo guardar el registro', 'error')
