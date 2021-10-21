@@ -9,7 +9,6 @@
       body: new URLSearchParams(new FormData(form)),
       redirect: 'follow',
     })
-    console.log(new URLSearchParams(new FormData(form)))
     if (res.ok) {
       return res.json()
     }
@@ -27,7 +26,7 @@
     }
   })
 
-  form.addEventListener('submit', function (e) {
+  form.addEventListener('submit', async function (e) {
     e.preventDefault()
     submit.disabled = true
 
@@ -43,20 +42,14 @@
       })
     }, 250)
 
-    doRegister()
-      .then(() => {
-        Swal.fire(
-          'Correcto',
-          'Se ha guardado el registro',
-          'success',
-        ).then(() => form.reset())
-      })
-      .catch(() => {
-        Swal.fire('Oops', 'No se pudo guardar el registro', 'error')
-      })
-      .finally(() => {
-        submit.disabled = false
-        clearTimeout(timeout)
-      })
+    try {
+      await doRegister().finally(() => clearTimeout(timeout))
+      await Swal.fire('Correcto', 'Se ha guardado el registro', 'success')
+      form.reset()
+    } catch (err) {
+      await Swal.fire('Oops', 'No se pudo guardar el registro', 'error')
+    }
+
+    submit.disabled = false
   })
 })()
