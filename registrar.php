@@ -5,12 +5,16 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST') {
 }
 
 header('Content-Type: application/json; charset=UTF-8');
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-echo json_encode([
-  'ident' => '123',
-  'nombres' => 'Abc',
-  'apellidos' => 'Def',
-  'fecha_dosis1' => '0000-00-00',
-  'fecha_dosis2' => '0000-00-00',
-])
-?>
+  $entrada = json_encode([
+     $_POST["ident"],
+     $_POST["nombres"],
+     $_POST["apellidos"],
+     $_POST["tipo_biologico"],
+     $_POST["fecha_dosis1"],
+     $_POST["fecha_dosis2"],
+  ]);
+  echo ($entrada);
+  file_put_contents("registro.txt", $entrada.",".PHP_EOL, FILE_APPEND | LOCK_EX);
+}

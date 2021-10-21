@@ -9,11 +9,10 @@
       body: new URLSearchParams(new FormData(form)),
       redirect: 'follow',
     })
-
+    console.log(new URLSearchParams(new FormData(form)))
     if (res.ok) {
       return res.json()
     }
-
     const err = new Error(res.statusText)
     err.response = res
     throw err
@@ -46,9 +45,11 @@
 
     doRegister()
       .then(() => {
-        Swal.fire('Correcto', 'Se ha guardado el registro', 'success').then(
-          () => form.reset()
-        )
+        Swal.fire(
+          'Correcto',
+          'Se ha guardado el registro',
+          'success',
+        ).then(() => form.reset())
       })
       .catch(() => {
         Swal.fire('Oops', 'No se pudo guardar el registro', 'error')

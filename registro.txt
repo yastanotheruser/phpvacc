@@ -1,0 +1,3 @@
+["2345692","Alejandro","Burgos","astrazeneca","2021-10-21","2021-10-21"],
+["2363944","Camilo","Caicedo","pfizer","2021-10-01","2021-10-20"],
+["226522","Sebastian","Alvarez","Moderna","2021-10-01","2021-10-20"],
